@@ -17,6 +17,9 @@ pipeline {
                 sh '''
                 docker stop flask_app || true
                 docker rm flask_app || true
+
+                # Kill any process using port 5000 (rare fallback)
+                fuser -k 5000/tcp || true
                 '''
             }
         }
